@@ -6,6 +6,7 @@
   "module": "dist/tak-parsers.mjs",
   "typings": "dist/tak-parsers.d.ts",
   "scripts": {
+    "prepare": "npm run build",
     "build": "rollup -c"
   },
   "author": "",
