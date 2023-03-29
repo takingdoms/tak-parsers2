@@ -1,4 +1,4 @@
-import { TdfParser, TdfParserError, TdfSection } from "./tdf-types";
+import { TdfParserError, TdfSection } from "./tdf-types";
 
 export interface TdfStringParserConfig {
   allowRootFields: boolean;

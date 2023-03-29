@@ -41,6 +41,7 @@ function toJson(tdf: TdfSection, config?: Partial<TdfJsonConfig>): Json {
 }
 
 function fromJson(json: Json): TdfSection {
+  console.log(json);
   throw 'TODO';
 }
 
