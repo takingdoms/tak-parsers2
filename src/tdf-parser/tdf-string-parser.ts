@@ -1,15 +1,24 @@
 import { TdfParserError, TdfSection } from "./tdf-types";
 
 export interface TdfStringParserConfig {
+  /** Default: false */
   allowRootFields: boolean;
-  autoTrimValueString: boolean;
+  /** Default: false */
   allowNameOverrides: boolean;
+  /** Default: true */
+  autoTrimValueString: boolean;
+  /** Default: true */
+  autoLowercaseFieldKeys: boolean;
+  /** Default: true */
+  autoUppercaseSectionNames: boolean;
 }
 
 export const DEFAULT_TDF_STRING_PARSER_CONFIG: TdfStringParserConfig = {
   allowRootFields: false,
-  autoTrimValueString: true,
   allowNameOverrides: false,
+  autoTrimValueString: true,
+  autoLowercaseFieldKeys: true,
+  autoUppercaseSectionNames: true,
 };
 
 enum ParserContext {
@@ -127,7 +136,7 @@ function _parseTree(source: string, config: TdfStringParserConfig): TdfSection |
       }
 
       if (SECTION_NAME_REGEX.test(char)) {
-        currentSectionName += char;
+        currentSectionName += config.autoUppercaseSectionNames ? char.toUpperCase() : char;
         continue;
       }
 
@@ -219,6 +228,10 @@ function _parseTree(source: string, config: TdfStringParserConfig): TdfSection |
       }
 
       if (char === ';') {
+        if (config.autoLowercaseFieldKeys) {
+          currentField.key = currentField.key.toLowerCase();
+        }
+
         if (config.autoTrimValueString) {
           currentField.value = currentField.value.trim();
         }
