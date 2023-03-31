@@ -110,6 +110,10 @@ function _parseTree(source: string, config: TdfStringParserConfig): TdfSection |
         continue;
       }
 
+      if (char === ';') {
+        continue;
+      }
+
       if (KEY_NAME_REGEX.test(char)) {
         if (isInRoot && !config.allowRootFields) {
           return { row, col, pos: i, reason: `Can't add fields to the root.` };
